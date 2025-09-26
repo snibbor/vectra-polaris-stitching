@@ -1,0 +1,19 @@
+{
+  // .vscode/launch.json
+  "version": "0.2.0",
+  "configurations": [
+    {"name":"Python Debugger: Current File","type":"debugpy","request":"launch","program":"${file}","console":"integratedTerminal"},
+    {
+      "name": "Stitch TIFF → Zarr → OME-TIFF",
+      "type": "python",
+      "request": "launch",
+      "program": "stitch_by_tiff_position_tag_dazarr.py",              // run the current file
+      "console": "integratedTerminal",
+      "args": [
+        // Example usage:
+        "E:/Polaris/Polaris Images for Qymia",                        // directory containing input TIFF tiles
+        "-o", "merged.ome.tiff",          // output file
+      ]
+    }
+  ]
+}
