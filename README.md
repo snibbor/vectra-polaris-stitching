@@ -89,30 +89,6 @@ python stitch_by_tiff_position_tag_dazarr.py [INPUTS] -o [OUTPUT_PATH] [OPTIONS]
   - By default, this will be an OME-TIFF file (e.g., `stitched_image.ome.tif`).
   - If `--output-format zarr` is used, this will be the path to a Zarr store (e.g., `stitched_image.zarr`).
 
-### Common Options
-
-- **`--output-format`**: Choose the output format.
-  - Choices: `ome-tiff` (default), `zarr`.
-  - Example: `--output-format zarr`
-
-- **`--keep-zarr`**: When outputting to OME-TIFF, the script first creates an intermediate Zarr store. By default, this Zarr store is deleted after the OME-TIFF is written. Use this flag to keep it.
-  - Example: `--keep-zarr`
-
-- **`--levels`**: Number of resolution pyramid levels to generate (default: 5).
-  - Example: `--levels 7`
-
-- **`--chunksize`**: YX chunk size for the intermediate Zarr store (default: 1024).
-  - Example: `--chunksize 512`
-
-- **`--compressor`**: Compressor for the Zarr store (default: `blosc`).
-  - Choices: `blosc`, `zstd`, `lz4`.
-
-- **`--tiff-compression`**: Compression for the final OME-TIFF file (default: `zlib`).
-  - Choices: `zlib`, `zstd`, `lzma`, `jpeg`, `lzw`, `none`.
-
-- **`--tiff-tile`**: Tile size for the final OME-TIFF pyramid (default: 512).
-  - Example: `--tiff-tile 256`
-
 For a full list of options, run `python stitch_by_tiff_position_tag_dazarr.py --help`.
 
 ### Example Usage
