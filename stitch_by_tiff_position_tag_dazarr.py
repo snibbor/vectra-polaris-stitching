@@ -358,6 +358,12 @@ def main():
         default="ome-tiff",
         help="Default: ome-tiff.",
     )
+    ap.add_argument(
+        "--scale-factor",
+        type=float,
+        default=1000.0,
+        help="Scale factor to multiply each channel of Vectra Polaris images. Default 1000.0.",
+    )
     # Zarr build options
     ap.add_argument(
         "--chunksize", type=int, default=1024, help="YX chunk size for Zarr."
@@ -415,6 +421,9 @@ def main():
     dtype = metas[0]["dtype"] if metas else np.uint16
     print(f"Tiles: {len(metas)} | Canvas: {W}x{H} | Channels: {C} | dtype: {dtype}")
 
+    scale_factor = args.scale_factor
+    print(f"Using scale factor to multiply channel values: {scale_factor}")
+
     # zarr store path
     base_out = (
         Path(args.output.replace(".ome", ""))
@@ -438,11 +447,13 @@ def main():
         if C > 1
         else (args.chunksize, args.chunksize)
     )
-    z0 = make_array(root, "0", shape0, chunks0, dtype, compressor, fill_value=0)
+    z0 = make_array(root, "0", shape0, chunks0, dtype, compressor, fill_value=0.0)
     for m in metas:
         arr = read_tile_cyx(m["path"], C)
         h, w = arr.shape[-2:]
-        z0[: arr.shape[0], m["y"] : m["y"] + h, m["x"] : m["x"] + w] = arr
+        z0[: arr.shape[0], m["y"] : m["y"] + h, m["x"] : m["x"] + w] = (
+            arr * scale_factor
+        )
 
     arrs = build_ome_levels_and_decimate(z0, args.levels)
     paths = ["0"]
