@@ -89,6 +89,25 @@ python stitch_by_tiff_position_tag_dazarr.py [INPUTS] -o [OUTPUT_PATH] [OPTIONS]
   - By default, this will be an OME-TIFF file (e.g., `stitched_image.ome.tif`).
   - If `--output-format zarr` is used, this will be the path to a Zarr store (e.g., `stitched_image.zarr`).
 
+### Common Options
+
+- **`--scale-factor`**: A floating-point number used to multiply the pixel values of each channel in the input images. This is particularly useful for adjusting the intensity of images from specific systems like Vectra Polaris which helps center the dynamic range of values (e.g. from 0.0000-1.0000 to 0.0-1000.0).
+  - Default: `1000.0`
+  - Example: `--scale-factor 500.0`
+
+- **`--output-format`**: Choose the output format.
+  - Choices: `ome-tiff` (default), `zarr`.
+  - Example: `--output-format zarr`
+
+- **`--keep-zarr`**: When outputting to OME-TIFF, the script first creates an intermediate Zarr store. By default, this Zarr store is deleted after the OME-TIFF is written. Use this flag to keep it.
+  - Example: `--keep-zarr`
+
+- **`--levels`**: Number of resolution pyramid levels to generate (default: 5).
+  - Example: `--levels 7`
+
+- **`--tiff-compression`**: Compression for the final OME-TIFF file (default: `zlib`).
+  - Choices: `zlib`, `zstd`, `lzma`, `jpeg`, `lzw`, `none`.
+
 For a full list of options, run `python stitch_by_tiff_position_tag_dazarr.py --help`.
 
 ### Example Usage
