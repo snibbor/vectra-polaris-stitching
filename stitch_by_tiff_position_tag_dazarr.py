@@ -352,7 +352,6 @@ def main():
         required=True,
         help="Final output path (.ome.tif by default, or .zarr with --output-format zarr).",
     )
-    ap.add_argument("--axes-out", choices=["YXC", "CYX"], default="CYX")
     ap.add_argument(
         "--output-format",
         choices=["ome-tiff", "zarr"],

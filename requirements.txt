@@ -1,0 +1,5 @@
+numpy
+zarr
+numcodecs
+tifffile
+dask
